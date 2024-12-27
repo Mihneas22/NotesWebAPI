@@ -17,7 +17,5 @@ namespace Application.DTOs.NotesDTOs.AddNote
         public List<string> Tags { get; set; } = new List<string>();
 
         public List<string> SharedKeys { get; set; } = new List<string>();
-
-        public DateTime FinalTerm { get; set; } = DateTime.MinValue;
     }
 }

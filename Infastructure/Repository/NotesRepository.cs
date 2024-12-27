@@ -40,7 +40,7 @@ namespace Infastructure.Repository
                 Progress = 0f,
                 Tags = addNoteDTO.Tags,
                 SharedKeys = addNoteDTO.SharedKeys,
-                FinalTerm = addNoteDTO.FinalTerm,
+                FinalTerm = DateTime.Now,
                 AddedDateTime = DateTime.Now
             });
             await dbContext.SaveChangesAsync();
