@@ -1,7 +1,6 @@
 @WebAPI_HostAddress = http://localhost:5178
 
-GET {{WebAPI_HostAddress}}/notes/+q7jP5gYoOlhvDg7AZhDjQ==/getNotes
+DELETE {{WebAPI_HostAddress}}/notes/+q7jP5gYoOlhvDg7AZhDjQ==/deleteNote/SecondNote
 Accept: application/json
-
 
 ###
