@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Domain.Entities.App;
 using Application.DTOs.NotesDTOs.DeleteNote;
 using Application.DTOs.NotesDTOs.ModifyNote;
+using Application.DTOs.NotesDTOs.GetNotesByTags;
 
 namespace Infastructure.Repository
 {
@@ -81,6 +82,42 @@ namespace Infastructure.Repository
             else
                 return new GetNotesByApiKeyResponse(true, "Notes found!", noteList);
         }
+
+        public async Task<GetNotesByTagsResponse> GetNotesByTagsAsync(GetNotesByTagsDTO getNotesByTagsDTO)
+        {
+            var apikey = await dbContext.ApiKeysEntity.FirstOrDefaultAsync(u => u.Key == getNotesByTagsDTO.ApiKey);
+
+            if (apikey == null)
+                return new GetNotesByTagsResponse(false, "Invalid API key.");
+
+           List<Note> noteList = new List<Note>();
+
+            foreach (var note in await dbContext.NotesEntity.ToListAsync())
+            {
+                foreach (var tag in getNotesByTagsDTO.Tags)
+                {
+                    if (note.Tags!.Contains(tag))
+                    {
+                        noteList.Add(note);
+                    }
+                }
+            }
+
+            int n = noteList.Count;
+            for(int i = 0;i<n-1;i++)
+            {
+                if (noteList[i].Id == noteList[i+1].Id)
+                {
+                    noteList.RemoveAt(i);
+                    n--;
+                }
+            }
+
+            if (noteList == null)
+                return new GetNotesByTagsResponse(false, "Notes not found...");
+            else
+                return new GetNotesByTagsResponse(true, "Notes found!", noteList);
+        }   
 
         public async Task<ModifyNoteResponse> ModifyNotesAsync(ModifyNoteDTO modifyNoteDTO)
         {

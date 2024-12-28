@@ -1,6 +1,13 @@
 @WebAPI_HostAddress = http://localhost:5178
 
-DELETE {{WebAPI_HostAddress}}/notes/+q7jP5gYoOlhvDg7AZhDjQ==/deleteNote/SecondNote
+GET {{WebAPI_HostAddress}}/notes/+q7jP5gYoOlhvDg7AZhDjQ==/getNotesByTag?tags=Pizza
 Accept: application/json
+Content-Type: application/json
+{
+    "Name": "SecondNote",
+    "Text": "This is my first note about pizza",
+    "Tags": ["Food","Pizza"],
+    "SharedKeys": [""]
+}
 
 ###

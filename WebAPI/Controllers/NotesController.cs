@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.NotesDTOs.AddNote;
 using Application.DTOs.NotesDTOs.DeleteNote;
 using Application.DTOs.NotesDTOs.GetNotesByApiKey;
+using Application.DTOs.NotesDTOs.GetNotesByTags;
 using Application.DTOs.NotesDTOs.ModifyNote;
 using Application.Repository;
 using Domain.Entities.Keys;
@@ -25,6 +26,14 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<GetNotesByApiKeyResponse>> GetNotesByKeyAsync(string apiKey)
         {
             var result = await notesRepository.GetNotesByApiKeyAsync(new GetNotesByApiKeyDTO { ApiKey = apiKey });
+            return Ok(result);
+        }
+
+        [HttpGet("{apiKey}/getNotesByTag")]
+        public async Task<ActionResult<GetNotesByTagsResponse>> GetNotesByTagsAsync(string apiKey, [FromQuery]List<string> tags)
+        {
+            //getNotesByTag?tags=Food&tags=Pizza
+            var result = await notesRepository.GetNotesByTagsAsync(new GetNotesByTagsDTO { ApiKey = apiKey, Tags = tags });
             return Ok(result);
         }
 
